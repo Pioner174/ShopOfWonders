@@ -5,7 +5,7 @@ using SOW.ShopOfWonders.Model;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
 builder.Services.AddDbContext<IdentityContext>(opts =>
 {
@@ -31,6 +31,10 @@ builder.Services.AddIdentity<User, IdentityRole<long>>()
 
 var app = builder.Build();
 
-app.MapGet("/", () => "Hello World!");
+app.UseStaticFiles();
+
+app.MapControllers();
+
+app.MapDefaultControllerRoute();
 
 app.Run();
