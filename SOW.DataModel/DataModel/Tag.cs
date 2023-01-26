@@ -1,4 +1,6 @@
-﻿namespace SOW.DataModel
+﻿using System.Text.Json.Serialization;
+
+namespace SOW.DataModel
 {
     public class Tag
     {
@@ -6,5 +8,8 @@
         public string Name { get; set; }
 
         public IEnumerable<Product>? Products { get; set; }
+
+        [JsonIgnore]
+        public IEnumerable<ProductsTags>? ProductsTags { get; set; }
     }
 }

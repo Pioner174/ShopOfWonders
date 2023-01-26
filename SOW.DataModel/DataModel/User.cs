@@ -2,7 +2,7 @@
 
 namespace SOW.DataModel
 {
-    public class User : IdentityUser
+    public class User : IdentityUser<long>
     {
         [PersonalData]
         public string? Name { get; set; }
@@ -13,5 +13,6 @@ namespace SOW.DataModel
         [PersonalData]
         public string? Patronymic { get; set; }
 
+        public IEnumerable<Comment>? Comments { get; set; }
     }
 }

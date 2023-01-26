@@ -24,8 +24,9 @@ builder.Services.Configure<IdentityOptions>(opts =>
     opts.User.AllowedUserNameCharacters += "!";
 });
 
-builder.Services.AddIdentity<User, IdentityRole>()
+builder.Services.AddIdentity<User, IdentityRole<long>>()
     .AddEntityFrameworkStores<IdentityContext>();
+
 
 
 var app = builder.Build();
