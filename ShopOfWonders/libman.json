@@ -9,6 +9,20 @@
         "css/bootstrap.min.css",
         "css/bootstrap.min.css.map"
       ]
+    },
+    {
+      "library": "font-awesome@6.2.1",
+      "destination": "wwwroot/lib/font-awesome/",
+      "files": [
+        "css/all.min.css"
+      ]
+    },
+    {
+      "library": "mdbootstrap@4.20.0",
+      "destination": "wwwroot/lib/mdbootstrap/",
+      "files": [
+        "css/mdb.min.css"
+      ]
     }
   ]
 }

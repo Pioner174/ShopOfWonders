@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using SOW.DataModels;
 using SOW.ShopOfWonders.Models;
 using SOW.ShopOfWonders.Models.ViewModels;
@@ -8,7 +8,7 @@ using SOW.ShopOfWonders.Models.ViewModels;
 namespace SOW.ShopOfWonders.Controllers.MVC
 {
     [Route("mvc/account/{action=Index}")]
-    public class AccountController: Controller
+    public class AccountController : Controller
 
     {
         //Предоставляет API для управления пользователем в хранилище сохраняемости
@@ -19,21 +19,42 @@ namespace SOW.ShopOfWonders.Controllers.MVC
         private IdentityContext _context;
 
         public AccountController(UserManager<User> userManger, SignInManager<User> signInManager, IdentityContext context)
-        
-        
+
+
         {
             _userManger = userManger;
             _signInManager = signInManager;
             _context = context;
         }
 
-
-        public IActionResult Login(string returnUrl)
+        [AllowAnonymous]
+        public IActionResult SignIn(string returnUrl)
         {
-            return View(ViewBag.ReturnUrl = returnUrl);
+            return View(new LoginViewModel { ReturnUrl = returnUrl });
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> SignIn([FromForm] LoginViewModel loginModel)
+        {
+            if (ModelState.IsValid)
+            {
+                User user = await _userManger.FindByNameAsync(loginModel.Name);
 
+                if (user != null)
+                {
+
+                    if ((await _signInManager.PasswordSignInAsync(user, loginModel.Password, false, false)).Succeeded)
+                    {
+                        return Redirect(loginModel?.ReturnUrl ?? "/mvc/account");
+                    }
+                }
+            }
+            ModelState.AddModelError("", "Неправильный логин или пароль.");
+            return View(loginModel);
+        }
+
+        [AllowAnonymous]
         public IActionResult SignUp()
         {
             return View();
@@ -47,7 +68,7 @@ namespace SOW.ShopOfWonders.Controllers.MVC
             {
                 User user = new User() { UserName = viewModel.Login, Email = viewModel.Email };
 
-                IdentityResult result = await _userManger.CreateAsync(user,viewModel.Password);
+                IdentityResult result = await _userManger.CreateAsync(user, viewModel.Password);
                 if (result.Succeeded)
                 {
                     return RedirectToAction("Index");

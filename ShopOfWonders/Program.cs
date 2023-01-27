@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using SOW.DataModels;
@@ -27,11 +28,27 @@ builder.Services.Configure<IdentityOptions>(opts =>
 builder.Services.AddIdentity<User, IdentityRole<long>>()
     .AddEntityFrameworkStores<IdentityContext>();
 
+builder.Services.AddAuthentication(opts =>
+{
+    opts.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    opts.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+
+}).AddCookie(opts =>
+{
+    opts.LoginPath = "mvc/account/";
+});
+
 
 
 var app = builder.Build();
 
 app.UseStaticFiles();
+
+app.UseRouting();
+
+app.UseAuthentication();    // аутентификация
+app.UseAuthorization();     // авторизация
+
 
 app.MapControllers();
 
