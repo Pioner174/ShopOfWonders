@@ -1,9 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using SOW.ShopOfWonders.Model;
+using SOW.ShopOfWonders.Models;
 
 namespace SOW.ShopOfWonders.Controllers.MVC
 {
+    [Route("mvc/user/")]
     public class UserController : Controller
     {
         private IdentityContext _context;

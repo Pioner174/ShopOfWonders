@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using SOW.DataModel;
-using SOW.ShopOfWonders.Model;
+using SOW.DataModels;
+using SOW.ShopOfWonders.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
