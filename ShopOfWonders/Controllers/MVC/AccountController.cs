@@ -35,7 +35,7 @@ namespace SOW.ShopOfWonders.Controllers.MVC
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> SignIn([FromForm] LoginViewModel loginModel)
+        public async Task<IActionResult> SignIn(LoginViewModel loginModel)
         {
             if (ModelState.IsValid)
             {
@@ -62,7 +62,7 @@ namespace SOW.ShopOfWonders.Controllers.MVC
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> SignUp([FromForm] RegisterViewModel viewModel)
+        public async Task<IActionResult> SignUp(RegisterViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
