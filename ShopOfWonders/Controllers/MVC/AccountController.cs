@@ -18,9 +18,8 @@ namespace SOW.ShopOfWonders.Controllers.MVC
         //Предоставляет API-интерфейсы для использования БД
         private IdentityContext _context;
 
-        public AccountController(UserManager<User> userManger, SignInManager<User> signInManager, IdentityContext context)
-
-
+        public AccountController(UserManager<User> userManger, SignInManager<User> signInManager
+            , IdentityContext context)
         {
             _userManger = userManger;
             _signInManager = signInManager;
@@ -28,14 +27,14 @@ namespace SOW.ShopOfWonders.Controllers.MVC
         }
 
         [AllowAnonymous]
-        public IActionResult SignIn(string returnUrl)
+        public IActionResult LogIn(string returnUrl)
         {
             return View(new LoginViewModel { ReturnUrl = returnUrl });
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> SignIn(LoginViewModel loginModel)
+        public async Task<IActionResult> LogIn(LoginViewModel loginModel)
         {
             if (ModelState.IsValid)
             {
@@ -85,10 +84,28 @@ namespace SOW.ShopOfWonders.Controllers.MVC
         }
 
 
-
-        public ActionResult Index()
+        [Authorize]
+        public async Task<ActionResult> Index()
         {
+            HttpContext httpContext = HttpContext ;
+
+            if(httpContext?.User != null)
+            {
+                User user = await _userManger.GetUserAsync(httpContext.User);
+            }
+            
+
+
+
             return View();
+        }
+
+
+        [Authorize]
+        public async Task<RedirectResult> Logout(string returnUrl = "/mvc/account")
+        {
+            await _signInManager.SignOutAsync();
+            return Redirect(returnUrl);
         }
 
     }

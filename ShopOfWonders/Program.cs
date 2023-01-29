@@ -35,7 +35,7 @@ builder.Services.AddAuthentication(opts =>
 
 }).AddCookie(opts =>
 {
-    opts.LoginPath = "mvc/account/";
+    opts.LoginPath = "/mvc/account/LogIn";
 });
 
 
