@@ -6,7 +6,7 @@ button.addEventListener("click", function () {
     editableFields.forEach(field => {
         field.setAttribute('contentEditable', true);
         field.classList.remove('text-muted');
-        field.classList.add('editable', 'form-control', 'border-3');
+        field.classList.add('editable', 'form-control', 'border-1');
     });
 });
 
