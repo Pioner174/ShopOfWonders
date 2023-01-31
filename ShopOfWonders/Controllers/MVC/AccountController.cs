@@ -87,17 +87,43 @@ namespace SOW.ShopOfWonders.Controllers.MVC
         [Authorize]
         public async Task<ActionResult> Index()
         {
-            HttpContext httpContext = HttpContext ;
 
-            if(httpContext?.User != null)
+            if(HttpContext?.User != null)
             {
-                User user = await _userManger.GetUserAsync(httpContext.User);
+                User user = await _userManger.GetUserAsync(HttpContext.User);
 
                 UserViewModel userViewModel = new UserViewModel(user!);
 
                 return View(userViewModel);
             }
  
+            return View();
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<ActionResult> Index(UserViewModel viewModel)
+        {
+            if (HttpContext?.User != null)
+            {
+                User user = await _userManger.GetUserAsync(HttpContext.User);
+
+                user.UserName = viewModel.Login != string.Empty ? viewModel.Login : user.UserName;
+                user.Email = viewModel.Email != string.Empty ? viewModel.Email: user.Email;
+                user.Name= viewModel.Name != string.Empty ? viewModel.Name : user.Name;
+                user.Surname = viewModel.Surname != string.Empty ? viewModel.Surname : user.Surname;
+                user.Patronymic = viewModel.Patronomic != string.Empty ? viewModel.Patronomic : user.Patronymic;
+                user.PhoneNumber = viewModel.PhoneNumber != string.Empty ? viewModel.PhoneNumber : user.PhoneNumber;
+
+                await _userManger.UpdateAsync(user);
+
+                user = await _userManger.GetUserAsync(HttpContext.User);
+
+                UserViewModel userViewModel = new UserViewModel(user!);
+
+                return View(userViewModel);
+            }
+
             return View();
         }
 

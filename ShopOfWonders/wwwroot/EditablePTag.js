@@ -1,12 +1,21 @@
-﻿const button = document.getElementById("editButton");
+﻿const buttonEdit = document.getElementById("editButton");
+const buttonSave = document.getElementById("saveButton");
 const pTag = document.getElementById("editablePTag");
 const editableFields = document.querySelectorAll('p.editable');
 
-button.addEventListener("click", function () {
+buttonEdit.addEventListener("click", function () {
     editableFields.forEach(field => {
         field.setAttribute('contentEditable', true);
         field.classList.remove('text-muted');
         field.classList.add('editable', 'form-control', 'border-1');
+    });
+    document.getElementById("saveButton").classList.replace('disabled','active');
+});
+
+buttonSave.addEventListener("click", function () {
+    editableFields.forEach(field => {
+        var s = field.nextSibling;
+        s.setAttribute('value', field.textContent)
     });
 });
 
