@@ -92,11 +92,12 @@ namespace SOW.ShopOfWonders.Controllers.MVC
             if(httpContext?.User != null)
             {
                 User user = await _userManger.GetUserAsync(httpContext.User);
+
+                UserViewModel userViewModel = new UserViewModel(user!);
+
+                return View(userViewModel);
             }
-            
-
-
-
+ 
             return View();
         }
 

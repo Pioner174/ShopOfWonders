@@ -1,4 +1,4 @@
-﻿
+﻿@model UserViewModel
 @{
     Layout = "_SimpleLayout";
 }
@@ -37,12 +37,13 @@
       <div class="col-lg-8">
         <div class="card mb-4">
           <div class="card-body">
+              
             <div class="row">
               <div class="col-sm-3">
-                <p class="mb-0">Full Name</p>
+                <p class="mb-0">Login</p>
               </div>
               <div class="col-sm-9">
-                <p class="text-muted mb-0">Johnatan Smith</p>
+                @*<input type="text" class="form-control  border-0"  asp-for="Login"/>*@
               </div>
             </div>
             <hr>
@@ -51,35 +52,50 @@
                 <p class="mb-0">Email</p>
               </div>
               <div class="col-sm-9">
-                <p class="text-muted mb-0">example@example.com</p>
+                <input type="text" class="form-control border-0"  asp-for="Email"/>
               </div>
             </div>
             <hr>
             <div class="row">
               <div class="col-sm-3">
-                <p class="mb-0">Phone</p>
+                <p class="mb-0">Name</p>
               </div>
               <div class="col-sm-9">
-                <p class="text-muted mb-0">(097) 234-5678</p>
+                <input type="text" class="form-control border-0"  asp-for="Name"/>    
               </div>
             </div>
             <hr>
             <div class="row">
               <div class="col-sm-3">
-                <p class="mb-0">Mobile</p>
+                <p class="mb-0">Surname</p>
               </div>
               <div class="col-sm-9">
-                <p class="text-muted mb-0">(098) 765-4321</p>
+                <input type="text" class="form-control border-0"  asp-for="Surname"/>  
               </div>
             </div>
             <hr>
             <div class="row">
               <div class="col-sm-3">
-                <p class="mb-0">Address</p>
+                <p class="mb-0">Patronomic</p>
               </div>
               <div class="col-sm-9">
-                <p class="text-muted mb-0">Bay Area, San Francisco, CA</p>
+                <input type="text" class="form-control border-0" asp-for="Patronomic"/>  
               </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Telephone</p>
+              </div>
+              <div class="col-sm-9">
+                <input type="text" class="form-control border-0" asp-for="PhoneNumber"/>  
+              </div>
+            </div>
+            <hr>
+            <div class="d-flex justify-content-center mb-2">
+              
+              <button type="button" id="editButton" class="btn btn-outline-primary ms-1">Edit</button>
+              <button type="button" class="btn btn-primary ms-2">Save</button>
             </div>
           </div>
         </div>

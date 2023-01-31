@@ -5,7 +5,7 @@ VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SOW.ShopOfWonders", "ShopOfWonders\SOW.ShopOfWonders.csproj", "{E18E1EB7-DD0D-446E-B770-8159CEFE7385}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SOW.DataModel", "SOW.DataModel\SOW.DataModel.csproj", "{B64E1D66-3778-4909-81F2-1B4448B17FF3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SOW.DataModel", "SOW.DataModel\SOW.DataModel.csproj", "{B64E1D66-3778-4909-81F2-1B4448B17FF3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
