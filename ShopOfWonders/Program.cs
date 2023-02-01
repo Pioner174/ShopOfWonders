@@ -7,6 +7,10 @@ using SOW.ShopOfWonders.Models;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
+builder.Services.AddRazorPages(opts =>
+{
+    opts.RootDirectory = "/Blazor/Pages";
+});
 builder.Services.AddServerSideBlazor();
 
 builder.Services.AddDbContext<IdentityContext>(opts =>
@@ -54,6 +58,9 @@ app.UseAuthorization();     // авторизация
 app.MapControllers();
 
 app.MapDefaultControllerRoute();
-app.MapBlazorHub(); //Поддержка Blazor
+
+app.MapRazorPages();
+app.MapBlazorHub();//Поддержка Blazor
+app.MapFallbackToPage("/_Host");
 
 app.Run();
