@@ -102,6 +102,7 @@ namespace SOW.ShopOfWonders.Controllers.MVC
 
         [HttpPost]
         [Authorize]
+        [AutoValidateAntiforgeryToken]
         public async Task<ActionResult> Index(UserViewModel viewModel)
         {
             if (HttpContext?.User != null)
