@@ -8,10 +8,10 @@ namespace SOW.DataModels
 
         public string? CommentText { get; set; }
 
-        [Range(0,5)]
-        public decimal Raiting { get; set; }    
-        
-        public long ProductId { get; set; } 
+        [Range(0, 5)]
+        public decimal Raiting { get; set; }
+
+        public long ProductId { get; set; }
         public Product Product { get; set; }
 
         public long AuthorId { get; set; }

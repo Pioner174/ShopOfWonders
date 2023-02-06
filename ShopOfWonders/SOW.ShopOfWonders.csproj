@@ -4,6 +4,7 @@
     <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>217c149b-e329-4117-b488-a0638fe9ade8</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -24,6 +25,7 @@
   <ItemGroup>
     <Folder Include="Migrations\" />
     <Folder Include="Views\Home\" />
+    <Folder Include="wwwroot\lib\bootstrap462\" />
   </ItemGroup>
 
   <ItemGroup>

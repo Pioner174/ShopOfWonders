@@ -3,14 +3,6 @@
   "defaultProvider": "cdnjs",
   "libraries": [
     {
-      "library": "bootstrap@5.2.3",
-      "destination": "lib/bootstrap/",
-      "files": [
-        "css/bootstrap.min.css",
-        "css/bootstrap.min.css.map"
-      ]
-    },
-    {
       "library": "font-awesome@6.2.1",
       "destination": "wwwroot/lib/font-awesome/",
       "files": [
@@ -23,6 +15,13 @@
       "files": [
         "css/mdb.min.css"
       ]
+    },
+    {
+      "provider": "cdnjs",
+      "library": "bootstrap@5.2.3",
+      "destination": "wwwroot/lib/bootstrap523/",
+      "files": ["css/bootstrap.min.css"]
+       
     }
   ]
 }

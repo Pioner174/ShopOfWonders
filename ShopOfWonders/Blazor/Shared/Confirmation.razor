@@ -1,27 +1,30 @@
-﻿<div class="modal-backdrop show"></div>
-
-<div class="modal fade show" id="exampleModeal" tabindex="-1" role="dialog"
-    aria-labelledby="exampleModeal" aria-hidden="true" style="display:block">
-
-    <div class="modal-dialog" role="document">
-        <div class="model-content">
-            <div class="modal-header">
-                <h5 class="modal-title">@Title</h5>
+﻿@if (displayConfirmation)
+{
+    <div class="modal-backdrop show"></div>
+    <div class="modal fade show" id="staticBackdropLive" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLiveLabel" style="display: block;" aria-modal="true" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLiveLabel">@Title</h5>
+                    <button type="button" @onclick="onCancel" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+                </div>
+                <div class="modal-body">
+                    @ChildContent
+                </div>
+                <div class="modal-footer">
+                    <button type="button" @onclick="onConfirm" class="btn btn-primary">@TextButtonDanger</button>
+                    <button type="button" @onclick="onCancel" class="btn btn-secondary" data-bs-dismiss="modal">@TextButtonCansel</button>
+                        
+                </div>
             </div>
-            <div class="modal-body">
-                @ChildContent
-            </div>
-            <div class="modal-footer">
-                <button @onclick="onConfirm" type="button" class="btn btn-danger">@TextButtonDanger</button>
-                <button @onclick="onCancel" type="button" class="btn btn-primary">@TextButtonCansel</button>
-            </div>
-
         </div>
     </div>
 
-</div>
+}
 
 @code {
+    private bool displayConfirmation = false;
+
     [Parameter]
     public string Title { get; set; } = "Confirm";
 
@@ -39,5 +42,9 @@
 
     [Parameter]
     public string TextButtonCansel { get; set; } = "Cancel";
+
+    public void Show() => displayConfirmation = true;
+
+    public void Hide() => displayConfirmation = false;
 
 }

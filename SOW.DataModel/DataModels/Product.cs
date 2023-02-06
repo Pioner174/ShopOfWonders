@@ -21,7 +21,7 @@ namespace SOW.DataModels
         public IEnumerable<Tag>? Tags { get; set; }
 
         [JsonIgnore]
-        public IEnumerable<ProductsTags>? ProductsTags { get; set; } 
+        public IEnumerable<ProductsTags>? ProductsTags { get; set; }
 
         public IEnumerable<Comment>? Comments { get; set; }
     }

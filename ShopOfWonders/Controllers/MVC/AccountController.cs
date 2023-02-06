@@ -88,7 +88,7 @@ namespace SOW.ShopOfWonders.Controllers.MVC
         public async Task<ActionResult> Index()
         {
 
-            if(HttpContext?.User != null)
+            if (HttpContext?.User != null)
             {
                 User user = await _userManger.GetUserAsync(HttpContext.User);
 
@@ -96,7 +96,7 @@ namespace SOW.ShopOfWonders.Controllers.MVC
 
                 return View(userViewModel);
             }
- 
+
             return View();
         }
 
@@ -110,8 +110,8 @@ namespace SOW.ShopOfWonders.Controllers.MVC
                 User user = await _userManger.GetUserAsync(HttpContext.User);
 
                 user.UserName = viewModel.Login != string.Empty ? viewModel.Login : user.UserName;
-                user.Email = viewModel.Email != string.Empty ? viewModel.Email: user.Email;
-                user.Name= viewModel.Name != string.Empty ? viewModel.Name : user.Name;
+                user.Email = viewModel.Email != string.Empty ? viewModel.Email : user.Email;
+                user.Name = viewModel.Name != string.Empty ? viewModel.Name : user.Name;
                 user.Surname = viewModel.Surname != string.Empty ? viewModel.Surname : user.Surname;
                 user.Patronymic = viewModel.Patronomic != string.Empty ? viewModel.Patronomic : user.Patronymic;
                 user.PhoneNumber = viewModel.PhoneNumber != string.Empty ? viewModel.PhoneNumber : user.PhoneNumber;

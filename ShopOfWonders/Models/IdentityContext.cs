@@ -5,7 +5,7 @@ using SOW.DataModels;
 
 namespace SOW.ShopOfWonders.Models
 {
-    public class IdentityContext : IdentityDbContext<User, IdentityRole<long>, long> 
+    public class IdentityContext : IdentityDbContext<User, IdentityRole<long>, long>
     {
         public IdentityContext(DbContextOptions<IdentityContext> options) : base(options) { }
 
@@ -49,13 +49,13 @@ namespace SOW.ShopOfWonders.Models
                 p.HasMany(p => p.Tags)
                 .WithMany(t => t.Products)
                 .UsingEntity<ProductsTags>(
-                    tag=> tag.HasOne(pt=>pt.Tag)
-                    .WithMany(tag=>tag.ProductsTags)
-                    .HasForeignKey(pt=>pt.TagId),
+                    tag => tag.HasOne(pt => pt.Tag)
+                    .WithMany(tag => tag.ProductsTags)
+                    .HasForeignKey(pt => pt.TagId),
                     product => product.HasOne(pa => pa.Product)
                     .WithMany(tag => tag.ProductsTags)
                     .HasForeignKey(pt => pt.ProductId));
-                    
+
             });
 
             builder.Entity<Category>(c =>
@@ -64,7 +64,7 @@ namespace SOW.ShopOfWonders.Models
 
                 c.HasIndex(t => t.Name).IsUnique();
                 // Один ко многим
-                c.HasMany(co=>co.Products)
+                c.HasMany(co => co.Products)
                 .WithOne(c => c.Category);
             });
 

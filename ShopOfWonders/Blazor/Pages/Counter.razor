@@ -6,14 +6,35 @@
 
 <p role="status">Current count: @currentCount</p>
 
-<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
-<Confirmation></Confirmation>
+<button class="btn btn-primary" @onclick="OpenConfirmation">Click me</button>
+<Confirmation @ref="confirmation" onCancel="OnCancle" onConfirm="OnConfirm" Title="Подтверждение">
+    <div class="text-danger">Хотите инкриментировать число?</div>
+</Confirmation>
+
 
 @code {
+
     private int currentCount = 0;
 
-    private void IncrementCount()
+    private void IncrementCount(int i = 1)
     {
-        currentCount++;
+        currentCount+=i;
+    }
+
+    private void OpenConfirmation()
+    {
+        confirmation.Show();
+    }
+
+    private Confirmation confirmation;
+
+    private void OnConfirm()
+    {
+        confirmation.Hide();
+        IncrementCount();
+    }
+    private void OnCancle()
+    {
+        confirmation.Hide();
     }
 }
