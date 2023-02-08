@@ -1,0 +1,133 @@
+﻿@page "/rsp"
+
+@implements IDisposable
+
+<div class="row text-center">
+    <div class="col">
+        <h1 class="text-success">RSP mini game</h1>
+    </div>
+</div>
+
+@if (!string.IsNullOrWhiteSpace(_gameResultMessage))
+{
+    <div class="row ">
+        <div class="col text-center alert alert-@_resultStyle">
+            <h3>@_gameResultMessage</h3>
+        </div>
+    </div>
+}
+
+
+<div class="row text-center">
+    <div class="col mb-5 justify-content-center">
+        <img src="@_opponent.Image" class="general-image"/>
+    </div>
+</div>
+
+<div class="row text-center">
+    <div class="col mb-5 justify-content-center">
+        <button class="btn btn-primary" @onclick="ResetGame">Start new Game</button>
+    </div>
+</div>
+
+<div class="row text-center justify-content-around">
+    @foreach(var item in _gameResults)
+    {
+        
+            <img src="@item.Image" class="general-image hovered-image" @onclick="(()=> SelectHandller(item))"/>
+        
+    }
+    @*<div class="col">
+        <img src="/files/images/paper.png" class="general-image hovered-image"/>
+    </div>
+    <div class="col">
+        <img src="/files/images/scissors.png" class="general-image hovered-image"/>
+    </div>
+    <div class="col">
+        <img src="/files/images/stone.png" class="general-image hovered-image"/>
+    </div>*@
+
+</div>
+
+@code {
+    List<RSPHandler> _gameResults = new()
+    {
+        new RSPHandler{Choose= Elems.Paper, LooseCondition= Elems.Scissors, WinCondition= Elems.Stone, Image="/files/images/paper.png"},
+        new RSPHandler{Choose= Elems.Scissors, LooseCondition= Elems.Stone, WinCondition= Elems.Paper, Image="/files/images/scissors.png"},
+        new RSPHandler{Choose= Elems.Stone, LooseCondition= Elems.Paper, WinCondition= Elems.Scissors, Image="/files/images/stone.png"}
+    };
+
+    private Timer _timer;
+
+    private RSPHandler _opponent;
+
+    private Random _rdm;
+
+    string _gameResultMessage = string.Empty;
+
+    string _resultStyle = string.Empty;
+
+    protected override void OnInitialized()
+    {
+        _rdm = new Random();
+        _opponent = _gameResults[_rdm.Next(0,3)];
+
+        _timer = new Timer(100);
+        _timer.Elapsed += ElapsedTimer;
+        _timer.Start();
+
+    }
+
+    async void ElapsedTimer(object sender, ElapsedEventArgs args)
+    {
+        _opponent = _gameResults[_rdm.Next(0, 3)];
+        Console.WriteLine($"Смена!  ---  {DateTime.Now.ToLongTimeString()}");
+
+        await InvokeAsync(StateHasChanged);//Перерисвока отображения идёт через асинхронный вызов функции.
+    }
+
+    void SelectHandller(RSPHandler game)
+    {
+        _timer.Stop();
+
+        GameResults result = game.GameResult(_opponent);
+
+        if (string.IsNullOrWhiteSpace(_gameResultMessage))
+        {
+            switch (result)
+            {
+                case GameResults.Victory:
+                    _gameResultMessage = "Поздровляем, вы победили!";
+                    _resultStyle = "success";
+                    break;
+                case GameResults.Draw:
+                    _gameResultMessage = "Ничья!((";
+                    _resultStyle = "primary";
+                    break;
+                case GameResults.Defeat:
+                    _gameResultMessage = "Увы, вы проиграли!";
+                    _resultStyle = "danger";
+                    break;
+            }
+        } 
+    }
+
+    void ResetGame()
+    {
+        _timer.Start();
+        _gameResultMessage = string.Empty;
+        _resultStyle = string.Empty;
+    }
+
+    public void Dispose()
+    {
+        if(_timer != null)
+        {
+            _timer.Dispose();
+            
+        }
+    }
+
+
+
+}
