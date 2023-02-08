@@ -17,11 +17,11 @@
       ]
     },
     {
-      "provider": "cdnjs",
       "library": "bootstrap@5.2.3",
       "destination": "wwwroot/lib/bootstrap523/",
-      "files": ["css/bootstrap.min.css"]
-       
+      "files": [
+        "js/bootstrap.bundle.min.js"
+      ]
     }
   ]
 }
