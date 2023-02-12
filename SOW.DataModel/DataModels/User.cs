@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿    using Microsoft.AspNetCore.Identity;
 
 namespace SOW.DataModels
 {
@@ -12,6 +12,10 @@ namespace SOW.DataModels
 
         [PersonalData]
         public string? Patronymic { get; set; }
+
+        public byte[]? ProfilePicture { get; set; }
+
+        public bool IsDeleted { get; set; } = false;
 
         public IEnumerable<Comment>? Comments { get; set; }
     }

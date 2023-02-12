@@ -1,0 +1,59 @@
+﻿@page "/users"
+@inherits OwningComponentBase<IdentityContext>
+
+<table class="table align-middle mb-0 bg-white">
+  <thead class="bg-light">
+    <tr>
+      <th>Name</th>
+      <th>Title</th>
+      <th>Status</th>
+      <th>Position</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+        @foreach (User user in UsersListView)
+        {
+        <tr>
+          <td>
+            <div class="d-flex align-items-center">
+              <img
+              src="@user.ProfilePicture"
+              alt=""
+              style="width: 45px; height: 45px"
+              class="rounded-circle"
+              />
+              <div class="ms-3">
+                <p class="fw-bold mb-1">@user.Name @user.Surname</p>
+                <p class="text-muted mb-0">@user.Email</p>
+              </div>
+            </div>
+          </td>
+          <td>
+            <p class="fw-normal mb-1">Software engineer</p>
+            <p class="text-muted mb-0">IT department</p>
+          </td>
+          <td>
+            <span class="badge badge-success rounded-pill d-inline">Active</span>
+          </td>
+          <td>Senior</td>
+          <td>
+            <button type="button" class="btn btn-link btn-sm btn-rounded">
+              Edit
+            </button>
+          </td>
+        </tr>
+        }
+  </tbody>
+</table>
+
+@code{
+    private IdentityContext _userManager => Service;
+
+    private IEnumerable<User> UsersListView { get; set; } = Enumerable.Empty<User>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        UsersListView = await _userManager.Users.ToListAsync();
+    }
+}

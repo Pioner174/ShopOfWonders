@@ -24,7 +24,6 @@
 
   <ItemGroup>
     <Folder Include="Blazor\Pages\Product\" />
-    <Folder Include="Blazor\Pages\Users\" />
     <Folder Include="Blazor\Pages\Roles\" />
     <Folder Include="Migrations\" />
     <Folder Include="Views\Home\" />

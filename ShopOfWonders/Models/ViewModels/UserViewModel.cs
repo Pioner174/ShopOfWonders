@@ -5,7 +5,7 @@ namespace SOW.ShopOfWonders.Models.ViewModels
 {
     public class UserViewModel
     {
-
+        public long Id { get; set; } 
         public string Login { get; set; }
 
         [EmailAddress]
@@ -17,6 +17,8 @@ namespace SOW.ShopOfWonders.Models.ViewModels
 
         [Phone]
         public string? PhoneNumber { get; set; }
+        
+        public byte[]? ProfilePicture { get; set; }
 
         public UserViewModel() { }
 
@@ -28,6 +30,7 @@ namespace SOW.ShopOfWonders.Models.ViewModels
             Surname = user.Surname;
             Patronomic = user.Patronymic;
             PhoneNumber = user.PhoneNumber;
+            ProfilePicture =  user.ProfilePicture;
         }
     }
 }
