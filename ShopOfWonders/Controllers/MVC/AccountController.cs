@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SOW.DataModels;
 using SOW.ShopOfWonders.Models;
+using SOW.ShopOfWonders.Models.Interfaces;
 using SOW.ShopOfWonders.Models.ViewModels;
 
 namespace SOW.ShopOfWonders.Controllers.MVC
@@ -18,12 +19,16 @@ namespace SOW.ShopOfWonders.Controllers.MVC
         //Предоставляет API-интерфейсы для использования БД
         private IdentityContext _context;
 
+
+        private IUserConnector _userRepo;
+
         public AccountController(UserManager<User> userManger, SignInManager<User> signInManager
-            , IdentityContext context)
+            , IdentityContext context, IUserConnector userRepo)
         {
             _userManger = userManger;
             _signInManager = signInManager;
             _context = context;
+            _userRepo = userRepo;
         }
 
         [AllowAnonymous]
@@ -92,9 +97,7 @@ namespace SOW.ShopOfWonders.Controllers.MVC
             {
                 User user = await _userManger.GetUserAsync(HttpContext.User);
 
-                UserViewModel userViewModel = new UserViewModel(user!);
-
-                return View(userViewModel);
+                return View(await _userRepo.GetUserVMForID(user!.Id));
             }
 
             return View();
@@ -103,29 +106,20 @@ namespace SOW.ShopOfWonders.Controllers.MVC
         [HttpPost]
         [Authorize]
         [AutoValidateAntiforgeryToken]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+        [ProducesDefaultResponseType]
         public async Task<ActionResult> Index(UserViewModel viewModel)
         {
-            if (HttpContext?.User != null)
-            {
-                User user = await _userManger.GetUserAsync(HttpContext.User);
 
-                user.UserName = viewModel.Login != string.Empty ? viewModel.Login : user.UserName;
-                user.Email = viewModel.Email != string.Empty ? viewModel.Email : user.Email;
-                user.Name = viewModel.Name != string.Empty ? viewModel.Name : user.Name;
-                user.Surname = viewModel.Surname != string.Empty ? viewModel.Surname : user.Surname;
-                user.Patronymic = viewModel.Patronomic != string.Empty ? viewModel.Patronomic : user.Patronymic;
-                user.PhoneNumber = viewModel.PhoneNumber != string.Empty ? viewModel.PhoneNumber : user.PhoneNumber;
+            User user = await _userManger.GetUserAsync(HttpContext.User);
 
-                await _userManger.UpdateAsync(user);
+            viewModel.Id = user.Id;
 
-                user = await _userManger.GetUserAsync(HttpContext.User);
-
-                UserViewModel userViewModel = new UserViewModel(user!);
-
-                return View(userViewModel);
-            }
-
-            return View();
+            await _userRepo.UpdateUserForUserVM(viewModel);
+            
+            return View(await _userRepo.GetUserVMForID(viewModel.Id)) ;
+            
         }
 
 

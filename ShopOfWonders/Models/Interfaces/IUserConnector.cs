@@ -10,7 +10,7 @@ namespace SOW.ShopOfWonders.Models.Interfaces
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public Task<UserViewModel> GetUserVMForID(int id);
+        public Task<UserViewModel> GetUserVMForID(long id);
 
         /// <summary>
         /// Получение всех UserViewModel 
@@ -28,7 +28,7 @@ namespace SOW.ShopOfWonders.Models.Interfaces
         /// Удаление User по id
         /// </summary>
         /// <param name="id"></param>
-        public Task<bool> DeleteUserForId(int id);
+        public Task<bool> DeleteUserForId(long id);
 
         /// <summary>
         /// Обновленние данных UserVM

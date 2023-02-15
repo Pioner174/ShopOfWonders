@@ -23,17 +23,5 @@ namespace SOW.ShopOfWonders.Models.ViewModels
         
         public byte[]? ProfilePicture { get; set; }
 
-        public UserViewModel() { }
-
-        public UserViewModel(User user)
-        {
-            Login = user.UserName;
-            Email = user.Email;
-            Name = user.Name;
-            Surname = user.Surname;
-            Patronomic = user.Patronymic;
-            PhoneNumber = user.PhoneNumber;
-            ProfilePicture =  user.ProfilePicture;
-        }
     }
 }

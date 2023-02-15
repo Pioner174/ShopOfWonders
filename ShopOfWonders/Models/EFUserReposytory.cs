@@ -18,7 +18,7 @@ namespace SOW.ShopOfWonders.Models
         }
 
 
-        public async Task<UserViewModel> GetUserVMForID(int id)
+        public async Task<UserViewModel> GetUserVMForID(long id)
         {
             var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == id && x.IsDeleted == false);
             if (user != null)
@@ -125,7 +125,7 @@ namespace SOW.ShopOfWonders.Models
             return true;
         }
 
-        public async Task<bool> DeleteUserForId(int id)
+        public async Task<bool> DeleteUserForId(long id)
         {
             var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == id && x.IsDeleted == false);
             if (user != null)

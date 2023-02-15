@@ -44,7 +44,7 @@ builder.Services.AddAuthentication(opts =>
     opts.LoginPath = "/mvc/account/LogIn";
 });
 
-builder.Services.AddSingleton<IUserConnector, EFUserReposytory>();
+builder.Services.AddScoped<IUserConnector, EFUserReposytory>();
 
 var app = builder.Build();
 
