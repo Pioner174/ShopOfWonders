@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using SOW.DataModels;
 using SOW.ShopOfWonders.Models;
+using SOW.ShopOfWonders.Models.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -43,7 +44,7 @@ builder.Services.AddAuthentication(opts =>
     opts.LoginPath = "/mvc/account/LogIn";
 });
 
-
+builder.Services.AddSingleton<IUserConnector, EFUserReposytory>();
 
 var app = builder.Build();
 

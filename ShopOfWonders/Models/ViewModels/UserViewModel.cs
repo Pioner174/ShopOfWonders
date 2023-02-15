@@ -5,10 +5,13 @@ namespace SOW.ShopOfWonders.Models.ViewModels
 {
     public class UserViewModel
     {
-        public long Id { get; set; } 
+        public long Id { get; set; }
+
+        [Required(ErrorMessage = "Поле является обязательным")]
         public string Login { get; set; }
 
         [EmailAddress]
+        [Required(ErrorMessage ="Поле является обязательным")]
         public string Email { get; set; }
 
         public string? Name { get; set; }
