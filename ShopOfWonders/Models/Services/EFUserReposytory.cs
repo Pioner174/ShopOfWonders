@@ -3,7 +3,7 @@ using SOW.DataModels;
 using SOW.ShopOfWonders.Models.Interfaces;
 using SOW.ShopOfWonders.Models.ViewModels;
 
-namespace SOW.ShopOfWonders.Models
+namespace SOW.ShopOfWonders.Models.Services
 {
 
     public class EFUserReposytory : IUserConnector
@@ -38,7 +38,7 @@ namespace SOW.ShopOfWonders.Models
             return null;
         }
 
-        public async Task<List<UserViewModel>> GetUsersVMList()
+        public async Task<IEnumerable<UserViewModel>> GetUsersVMList()
         {
             var users = await _context.Users.Where(u => u.IsDeleted == false).ToListAsync();
             return users.Select(user => new UserViewModel

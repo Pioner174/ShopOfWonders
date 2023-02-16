@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using SOW.DataModels;
 using SOW.ShopOfWonders.Models;
 using SOW.ShopOfWonders.Models.Interfaces;
+using SOW.ShopOfWonders.Models.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -44,7 +45,7 @@ builder.Services.AddAuthentication(opts =>
     opts.LoginPath = "/mvc/account/LogIn";
 });
 
-builder.Services.AddScoped<IUserConnector, EFUserReposytory>();
+builder.Services.AddTransient<IUserConnector, EFUserReposytory>();
 
 var app = builder.Build();
 

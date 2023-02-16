@@ -1,5 +1,5 @@
 ﻿@page "/users"
-@inherits OwningComponentBase<IdentityContext>
+
 
 <table class="table align-middle mb-0 bg-white">
   <thead class="bg-light">
@@ -12,7 +12,7 @@
     </tr>
   </thead>
   <tbody>
-        @foreach (User user in UsersListView)
+        @foreach (UserViewModel user in UsersListView)
         {
         <tr>
           <td>
@@ -48,12 +48,23 @@
 </table>
 
 @code{
-    private IdentityContext _userManager => Service;
+    [Inject]
+    private IUserConnector _userManager { get; set; }
 
-    private IEnumerable<User> UsersListView { get; set; } = Enumerable.Empty<User>();
+    private IEnumerable<UserViewModel> UsersListView { get; set; } = Enumerable.Empty <UserViewModel>();
 
-    protected override async Task OnInitializedAsync()
+    //protected override void OnInitialized()
+    //{
+    //    IEnumerable<UserViewModel> u = _userManager.GetUsersVMList().Result;
+    //    UsersListView = u.ToList();
+    //}
+
+
+    protected override async  Task OnInitializedAsync()
+
     {
-        UsersListView = await _userManager.Users.ToListAsync();
+        UsersListView = await _userManager.GetUsersVMList();
+
+        int k = UsersListView.Count();
     }
 }

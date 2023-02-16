@@ -16,7 +16,7 @@ namespace SOW.ShopOfWonders.Models.Interfaces
         /// Получение всех UserViewModel 
         /// </summary>
         /// <returns></returns>
-        public Task<List<UserViewModel>> GetUsersVMList();
+        public Task<IEnumerable<UserViewModel>> GetUsersVMList();
 
         /// <summary>
         /// Сохранение пользвателя по созданной UserViewModel

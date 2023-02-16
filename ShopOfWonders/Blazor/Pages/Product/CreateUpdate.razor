@@ -1,0 +1,31 @@
+﻿@page "/products/create"
+@page "/products/{id:long}"
+
+<link href="/blazorValidation.css" rel="stylesheet"/>
+
+<h4 class="bg-@Theme text-center text-white p-2 rounded font-weight-bold">@Mode</h4>
+
+
+
+
+@code {
+    [Parameter]
+    public long Id { get; set; }
+
+    [Inject]
+    private NavigationManager? NavManager { get; set; }
+
+    [Inject]
+    private IdentityContext? Context { get; set; }
+
+    private Product ProductData { get; set; } = new();
+
+    private IDictionary<string, long> Category { get; set; }
+        = new Dictionary<string, long>();
+
+
+
+    public string Theme => Id == 0 ? "primary" : "warning";
+
+    public string Mode => Id == 0 ? "Create new product" : "Edit product";
+}
