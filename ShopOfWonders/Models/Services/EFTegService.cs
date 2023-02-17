@@ -1,33 +1,48 @@
-﻿using SOW.DataModels;
+﻿using Microsoft.EntityFrameworkCore;
+using SOW.DataModels;
 using SOW.ShopOfWonders.Models.Interfaces;
 
 namespace SOW.ShopOfWonders.Models.Services
 {
     public class EFTegService : ITegService
     {
-        public Task<Tag> CreateTagAsync(Tag tag)
+        private IdentityContext _context;
+
+        public EFTegService(IdentityContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
         }
 
-        public Task DeleteTagAsync(long id)
+        public async Task<IEnumerable<Tag>> GetAllTagsAsync()
         {
-            throw new NotImplementedException();
+            return await _context.Tags.ToListAsync();
         }
 
-        public Task<IEnumerable<Tag>> GetAllTagsAsync()
+        public async Task<Tag> GetTagByIdAsync(long id)
         {
-            throw new NotImplementedException();
+            return await _context.Tags.FindAsync(id);
         }
 
-        public Task<Tag> GetTagByIdAsync(long id)
+        public async Task<Tag> CreateTagAsync(Tag tag)
         {
-            throw new NotImplementedException();
+            _context.Tags.Add(tag);
+            await _context.SaveChangesAsync();
+
+            return tag;
+        }
+        public async Task UpdateTagAsync(Tag tag)
+        {
+            _context.Entry(tag).State = EntityState.Modified;
+
+            await _context.SaveChangesAsync();
         }
 
-        public Task UpdateTagAsync(Tag tag)
+        public async Task DeleteTagAsync(long id)
         {
-            throw new NotImplementedException();
+            var tag = await _context.Tags.FindAsync(id);
+            tag.IsDeleted = true;
+
+            await _context.SaveChangesAsync();
         }
     }
 }

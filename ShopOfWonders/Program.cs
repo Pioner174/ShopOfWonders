@@ -13,7 +13,12 @@ builder.Services.AddRazorPages(opts =>
 {
     opts.RootDirectory = "/Blazor/Pages";
 });
-builder.Services.AddServerSideBlazor();
+builder.Services.AddServerSideBlazor(opts =>
+{
+#if DEBUG
+    opts.DetailedErrors = true;
+#endif
+});
 
 builder.Services.AddDbContext<IdentityContext>(opts =>
 {

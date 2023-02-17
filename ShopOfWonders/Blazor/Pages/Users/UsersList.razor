@@ -63,7 +63,7 @@
     protected override async  Task OnInitializedAsync()
 
     {
-        UsersListView = await _userManager.GetUsersVMList();
+        UsersListView = await _userManager.GetUsersVMListAsync();
 
         int k = UsersListView.Count();
     }

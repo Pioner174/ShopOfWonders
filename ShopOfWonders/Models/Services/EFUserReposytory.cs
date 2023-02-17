@@ -18,7 +18,7 @@ namespace SOW.ShopOfWonders.Models.Services
         }
 
 
-        public async Task<UserViewModel> GetUserVMForID(long id)
+        public async Task<UserViewModel> GetUserVMForIDAsync(long id)
         {
             var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == id && x.IsDeleted == false);
             if (user != null)
@@ -38,7 +38,7 @@ namespace SOW.ShopOfWonders.Models.Services
             return null;
         }
 
-        public async Task<IEnumerable<UserViewModel>> GetUsersVMList()
+        public async Task<IEnumerable<UserViewModel>> GetUsersVMListAsync()
         {
             var users = await _context.Users.Where(u => u.IsDeleted == false).ToListAsync();
             return users.Select(user => new UserViewModel
@@ -55,7 +55,7 @@ namespace SOW.ShopOfWonders.Models.Services
         }
 
   
-        public async Task<bool> SaveUserVMInBD(UserViewModel userVM)
+        public async Task<bool> SaveUserVMInBDAsync(UserViewModel userVM)
         {
             try
             {
@@ -80,7 +80,7 @@ namespace SOW.ShopOfWonders.Models.Services
             
         }
 
-        public async Task<bool> UpdateUserForUserVM(UserViewModel userVM)
+        public async Task<bool> UpdateUserForUserVMAsync(UserViewModel userVM)
         {
             var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == userVM.Id && x.IsDeleted == false);
             if(user == null)
@@ -125,7 +125,7 @@ namespace SOW.ShopOfWonders.Models.Services
             return true;
         }
 
-        public async Task<bool> DeleteUserForId(long id)
+        public async Task<bool> DeleteUserForIdAsync(long id)
         {
             var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == id && x.IsDeleted == false);
             if (user != null)

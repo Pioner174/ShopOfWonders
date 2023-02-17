@@ -11,5 +11,8 @@ namespace SOW.DataModels
 
         [JsonIgnore]
         public IEnumerable<ProductsTags>? ProductsTags { get; set; }
+
+        [JsonIgnore]
+        public bool  IsDeleted { get; set; } = false;
     }
 }

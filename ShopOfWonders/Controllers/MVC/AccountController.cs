@@ -54,6 +54,7 @@ namespace SOW.ShopOfWonders.Controllers.MVC
                     }
                 }
             }
+            
             ModelState.AddModelError("", "Неправильный логин или пароль.");
             return View(loginModel);
         }
@@ -97,7 +98,7 @@ namespace SOW.ShopOfWonders.Controllers.MVC
             {
                 User user = await _userManger.GetUserAsync(HttpContext.User);
 
-                return View(await _userRepo.GetUserVMForID(user!.Id));
+                return View(await _userRepo.GetUserVMForIDAsync(user!.Id));
             }
 
             return View();
@@ -116,9 +117,9 @@ namespace SOW.ShopOfWonders.Controllers.MVC
 
             viewModel.Id = user.Id;
 
-            await _userRepo.UpdateUserForUserVM(viewModel);
+            await _userRepo.UpdateUserForUserVMAsync(viewModel);
             
-            return View(await _userRepo.GetUserVMForID(viewModel.Id)) ;
+            return View(await _userRepo.GetUserVMForIDAsync(viewModel.Id)) ;
             
         }
 

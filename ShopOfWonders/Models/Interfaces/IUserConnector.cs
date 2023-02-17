@@ -10,31 +10,31 @@ namespace SOW.ShopOfWonders.Models.Interfaces
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public Task<UserViewModel> GetUserVMForID(long id);
+        public Task<UserViewModel> GetUserVMForIDAsync(long id);
 
         /// <summary>
         /// Получение всех UserViewModel 
         /// </summary>
         /// <returns></returns>
-        public Task<IEnumerable<UserViewModel>> GetUsersVMList();
+        public Task<IEnumerable<UserViewModel>> GetUsersVMListAsync();
 
         /// <summary>
         /// Сохранение пользвателя по созданной UserViewModel
         /// </summary>
         /// <param name="userVM"></param>
-        public Task<bool> SaveUserVMInBD(UserViewModel userVM);
+        public Task<bool> SaveUserVMInBDAsync(UserViewModel userVM);
 
         /// <summary>
         /// Удаление User по id
         /// </summary>
         /// <param name="id"></param>
-        public Task<bool> DeleteUserForId(long id);
+        public Task<bool> DeleteUserForIdAsync(long id);
 
         /// <summary>
         /// Обновленние данных UserVM
         /// </summary>
         /// <param name="userVM"></param>
-        public Task<bool> UpdateUserForUserVM(UserViewModel userVM);
+        public Task<bool> UpdateUserForUserVMAsync(UserViewModel userVM);
 
     }
 }
