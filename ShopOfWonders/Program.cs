@@ -50,7 +50,7 @@ builder.Services.AddAuthentication(opts =>
     opts.LoginPath = "/mvc/account/LogIn";
 });
 
-builder.Services.AddTransient<IUserConnector, EFUserReposytory>();
+builder.Services.AddTransient<IUserConnector, EFUserService>();
 
 var app = builder.Build();
 

@@ -6,13 +6,13 @@ using SOW.ShopOfWonders.Models.ViewModels;
 namespace SOW.ShopOfWonders.Models.Services
 {
 
-    public class EFUserReposytory : IUserConnector
+    public class EFUserService : IUserConnector
     {
         //Предоставляет API-интерфейсы для использования БД
         private IdentityContext _context;
 
         public const string Empty = null;
-        public EFUserReposytory(IdentityContext context)
+        public EFUserService(IdentityContext context)
         {
             _context = context;
         }
