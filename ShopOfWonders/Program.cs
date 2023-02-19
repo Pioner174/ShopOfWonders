@@ -7,7 +7,7 @@ using SOW.ShopOfWonders.ExternalServices.RabbitMq;
 using SOW.ShopOfWonders.Models;
 using SOW.ShopOfWonders.Models.Interfaces;
 using SOW.ShopOfWonders.Models.Services;
-
+using Swashbuckle.AspNetCore.Swagger;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -58,10 +58,11 @@ builder.Services.AddAuthentication(opts =>
 
 
 
-builder.Services.AddSwaggerGen(/*options =>
+builder.Services.AddSwaggerGen(options =>
 {
-    options.SwaggerDoc("SOW Api v1", new OpenApiInfo { Title = "ShopOfWonders Api", Version = "v1" });
-}*/);
+    options.SwaggerDoc("v1",
+        new OpenApiInfo { Title = "ShopOfWondersApi", Version = "v1" });
+});
 
 /// Сервисы для работы с БД
 builder.Services.AddScoped<IUserConnector, EFUserService>();
@@ -85,15 +86,16 @@ app.MapControllers();
 
 app.MapDefaultControllerRoute();
 
+
 app.MapRazorPages();
 app.MapBlazorHub();//Поддержка Blazor
 app.MapFallbackToPage("/_Host");
 
 app.UseSwagger();
-app.UseSwaggerUI(/*opts =>
+app.UseSwaggerUI(opts =>
 {
-    opts.SwaggerEndpoint("/swagger/v1/swagger.json", "SOW.ShopOfWonders");
-}*/);
+    opts.SwaggerEndpoint("/swagger/v1/swagger.json", "ShopOfWondersApi");
+});
 
 if (!app.Environment.IsDevelopment())
 {

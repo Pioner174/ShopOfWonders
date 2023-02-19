@@ -5,7 +5,7 @@ using SOW.ShopOfWonders.Models;
 namespace SOW.ShopOfWonders.Controllers.MVC
 {
     [Route("mvc/user/")]
-
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class UserController : Controller
     {
         private IdentityContext _context;
@@ -16,7 +16,7 @@ namespace SOW.ShopOfWonders.Controllers.MVC
             _context = context;
         }
 
-        [HttpGet("Index")]
+        [HttpGet]
         public async Task<ActionResult> Index()
         {
             return View(await _context.Users.ToListAsync());

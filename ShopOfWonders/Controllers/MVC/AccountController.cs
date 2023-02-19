@@ -5,12 +5,11 @@ using SOW.DataModels;
 using SOW.ShopOfWonders.Models;
 using SOW.ShopOfWonders.Models.Interfaces;
 using SOW.ShopOfWonders.Models.ViewModels;
-using System.Text.Json.Serialization;
 
 namespace SOW.ShopOfWonders.Controllers.MVC
 {
     [Route("mvc/account/{action=Index}")]
-
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class AccountController : Controller
 
     {
@@ -34,7 +33,7 @@ namespace SOW.ShopOfWonders.Controllers.MVC
         }
 
         [AllowAnonymous]
-        [HttpGet("LogIn")]
+        [HttpGet]
         public IActionResult LogIn(string returnUrl)
         {
             return View(new LoginViewModel { ReturnUrl = returnUrl });
@@ -63,7 +62,7 @@ namespace SOW.ShopOfWonders.Controllers.MVC
         }
 
         [AllowAnonymous]
-        [HttpGet("SignUp")]
+        [HttpGet]
         public IActionResult SignUp()
         {
             return View();
@@ -95,7 +94,7 @@ namespace SOW.ShopOfWonders.Controllers.MVC
 
 
         [Authorize]
-        [HttpGet("Index")]
+        [HttpGet]
         public async Task<ActionResult> Index()
         {
 
@@ -130,7 +129,7 @@ namespace SOW.ShopOfWonders.Controllers.MVC
 
 
         [Authorize]
-        [HttpGet("Logout")]
+        [HttpGet]
         public async Task<RedirectResult> Logout(string returnUrl = "/mvc/account")
         {
             await _signInManager.SignOutAsync();
