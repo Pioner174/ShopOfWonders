@@ -4,11 +4,11 @@ using SOW.ShopOfWonders.Models.Interfaces;
 
 namespace SOW.ShopOfWonders.Models.Services
 {
-    public class EFTegService : ITegService
+    public class EFTagService : ITagService
     {
         private IdentityContext _context;
 
-        public EFTegService(IdentityContext context)
+        public EFTagService(IdentityContext context)
         {
             _context = context;
         }
@@ -25,11 +25,16 @@ namespace SOW.ShopOfWonders.Models.Services
 
         public async Task<Tag> CreateTagAsync(Tag tag)
         {
-            _context.Tags.Add(tag);
-            await _context.SaveChangesAsync();
+            if(await IsTagAvailable(tag))
+            {
+                _context.Tags.Add(tag);
 
-            return tag;
+                await _context.SaveChangesAsync();
+            }
+
+            return await _context.Tags.FirstOrDefaultAsync(t=> t.Name == tag.Name);
         }
+
         public async Task UpdateTagAsync(Tag tag)
         {
             _context.Entry(tag).State = EntityState.Modified;
@@ -43,6 +48,15 @@ namespace SOW.ShopOfWonders.Models.Services
             tag.IsDeleted = true;
 
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<bool> IsTagAvailable(Tag tag)
+        {
+            if(await _context.Tags.FirstOrDefaultAsync(t=>t.Name== tag.Name) == null)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

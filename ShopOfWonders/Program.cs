@@ -1,10 +1,13 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 using SOW.DataModels;
+using SOW.ShopOfWonders.ExternalServices.RabbitMq;
 using SOW.ShopOfWonders.Models;
 using SOW.ShopOfWonders.Models.Interfaces;
 using SOW.ShopOfWonders.Models.Services;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +22,9 @@ builder.Services.AddServerSideBlazor(opts =>
     opts.DetailedErrors = true;
 #endif
 });
+
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddDbContext<IdentityContext>(opts =>
 {
@@ -50,7 +56,21 @@ builder.Services.AddAuthentication(opts =>
     opts.LoginPath = "/mvc/account/LogIn";
 });
 
-builder.Services.AddTransient<IUserConnector, EFUserService>();
+
+
+builder.Services.AddSwaggerGen(/*options =>
+{
+    options.SwaggerDoc("SOW Api v1", new OpenApiInfo { Title = "ShopOfWonders Api", Version = "v1" });
+}*/);
+
+/// Сервисы для работы с БД
+builder.Services.AddScoped<IUserConnector, EFUserService>();
+builder.Services.AddScoped<IProductService, EFProductService>();
+builder.Services.AddScoped<ITagService, EFTagService>();
+
+///  Сервис для работы с RabbitMQ
+builder.Services.AddScoped<IRabbitMq, RabbitMqService>();
+
 
 var app = builder.Build();
 
@@ -61,7 +81,6 @@ app.UseRouting();
 app.UseAuthentication();    // аутентификация
 app.UseAuthorization();     // авторизация
 
-
 app.MapControllers();
 
 app.MapDefaultControllerRoute();
@@ -69,5 +88,18 @@ app.MapDefaultControllerRoute();
 app.MapRazorPages();
 app.MapBlazorHub();//Поддержка Blazor
 app.MapFallbackToPage("/_Host");
+
+app.UseSwagger();
+app.UseSwaggerUI(/*opts =>
+{
+    opts.SwaggerEndpoint("/swagger/v1/swagger.json", "SOW.ShopOfWonders");
+}*/);
+
+if (!app.Environment.IsDevelopment())
+{
+    app.UseResponseCompression();
+    app.UseExceptionHandler("/Error");
+    app.UseHsts();
+}
 
 app.Run();

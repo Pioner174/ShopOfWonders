@@ -1,0 +1,34 @@
+﻿@page "/tags/create"
+
+<div class="container">
+  <h1 class="bg-secondary text-center text-white p-2 rounded font-weight-bold">Add Tag</h1>
+    <EditForm class="m-3" Model="Tag">
+        <DataAnnotationsValidator/>
+        <div class="form-group mb-3">
+        <label for="tagName">Tag Name</label>
+        <div>
+            <InputText class="form-control" id="tagName" placeholder="Enter tag name" @bind-Value="Tag.Name"/>
+            <ValidationMessage For="(()=> Tag.Name)"/>
+        </div>
+        </div>
+        
+        <button class="btn btn-primary" @onclick="(async ()=> await AddTag())" >Save</button>
+    </EditForm>
+</div>
+
+
+@code {
+    public Tag Tag = new();
+
+    [Inject]
+    public ITagService TagService { get; set; }
+
+    private async Task AddTag()
+    {
+
+        Tag = await TagService.CreateTagAsync(Tag);
+        Tag.Name.ToString();
+    }
+
+    
+}

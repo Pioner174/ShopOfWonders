@@ -2,7 +2,7 @@
 
 namespace SOW.ShopOfWonders.Models.Interfaces
 {
-    public interface ITegService
+    public interface ITagService
     {
         public Task<IEnumerable<Tag>> GetAllTagsAsync();
 
@@ -13,5 +13,7 @@ namespace SOW.ShopOfWonders.Models.Interfaces
         public Task UpdateTagAsync(Tag tag);
 
         public Task DeleteTagAsync(long id);
+
+        public Task<bool> IsTagAvailable(Tag tag);
     }
 }

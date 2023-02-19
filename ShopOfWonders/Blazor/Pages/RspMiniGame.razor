@@ -81,7 +81,6 @@
     async void ElapsedTimer(object sender, ElapsedEventArgs args)
     {
         _opponent = _gameResults[_rdm.Next(0, 3)];
-        Console.WriteLine($"Смена!  ---  {DateTime.Now.ToLongTimeString()}");
 
         await InvokeAsync(StateHasChanged);//Перерисвока отображения идёт через асинхронный вызов функции.
     }
