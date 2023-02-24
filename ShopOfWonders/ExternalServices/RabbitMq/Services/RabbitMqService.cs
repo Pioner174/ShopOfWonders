@@ -8,7 +8,7 @@ namespace SOW.ShopOfWonders.ExternalServices.RabbitMq
     {
         public void SendMessage(string message)
         {
-            var factory = new ConnectionFactory() { HostName = "localhost:15672" };
+            var factory = new ConnectionFactory() { HostName = "localhost" };
             using (var connection = factory.CreateConnection())
 
             using (var channel = connection.CreateModel())

@@ -7,7 +7,6 @@ using SOW.ShopOfWonders.ExternalServices.RabbitMq;
 using SOW.ShopOfWonders.Models;
 using SOW.ShopOfWonders.Models.Interfaces;
 using SOW.ShopOfWonders.Models.Services;
-using Swashbuckle.AspNetCore.Swagger;
 
 var builder = WebApplication.CreateBuilder(args);
 
