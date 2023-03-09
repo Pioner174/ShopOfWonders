@@ -37,6 +37,7 @@
     <Folder Include="Migrations\" />
     <Folder Include="Views\Home\" />
     <Folder Include="wwwroot\lib\bootstrap462\" />
+    <Folder Include="Files\" />
   </ItemGroup>
 
   <ItemGroup>

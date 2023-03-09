@@ -1,5 +1,35 @@
-﻿<h3>TegsList</h3>
+﻿@page "/tags"
+
+<h1>Список тегов</h1>
+
+<table class="table table-striped">
+   <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+    </tr>
+  </thead>
+    <tbody>
+        @foreach(Tag t in ListTags)
+        {
+        <tr>
+            <td>@t.TagId</td>
+            <td>#@t.Name</td>
+        </tr>
+        }
+    </tbody>
+</table>
 
 @code {
+    [Inject]
+    private ITagService _tagService { get; set; }
+
+    public IEnumerable<Tag> ListTags { get; set; } = Enumerable.Empty<Tag>();
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        ListTags = await _tagService.GetAllTagsAsync();
+    }
 
 }

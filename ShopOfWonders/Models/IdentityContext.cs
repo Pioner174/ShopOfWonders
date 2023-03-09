@@ -19,6 +19,8 @@ namespace SOW.ShopOfWonders.Models
 
         public DbSet<ProductsTags> ProductsTags { get; set; }
 
+        public DbSet<FileModel> FileModels { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
 
@@ -83,6 +85,14 @@ namespace SOW.ShopOfWonders.Models
 
                 tag.HasIndex(c => c.Name).IsUnique();
 
+            });
+
+            //Работа с фалами 
+            builder.Entity<FileModel>(file =>
+            {
+                file.HasKey(f=> f.Id);
+
+                file.HasOne(f => f.Author);
             });
 
             base.OnModelCreating(builder);

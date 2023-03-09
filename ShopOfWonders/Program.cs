@@ -71,6 +71,9 @@ builder.Services.AddScoped<ITagService, EFTagService>();
 ///  Сервис для работы с RabbitMQ
 builder.Services.AddScoped<IRabbitMq, RabbitMqService>();
 
+/// сервис работы с файлом и антивирусной проверки
+builder.Services.AddSingleton<IAntyVirusService, AntyVirusService>();
+
 
 var app = builder.Build();
 

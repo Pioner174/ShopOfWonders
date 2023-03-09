@@ -4,7 +4,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
-builder.Services.AddHostedService<RabbitMqListener>();
+//builder.Services.AddHostedService<RabbitMqListener>();
 
 
 var app = builder.Build();
