@@ -73,6 +73,7 @@ builder.Services.AddScoped<IRabbitMq, RabbitMqService>();
 
 /// сервис работы с файлом и антивирусной проверки
 builder.Services.AddSingleton<IAntyVirusService, AntyVirusService>();
+builder.Services.AddScoped<IFileService, FileService>();
 
 
 var app = builder.Build();

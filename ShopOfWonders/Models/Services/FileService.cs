@@ -24,12 +24,12 @@ namespace SOW.ShopOfWonders.Models.Services
             if(File.Exists("/Files/" + fileName))
             {
                 File.Delete("/Files/" + fileName);
-            }
 
-            FileModel fileModel = await _context.FileModels.FirstOrDefaultAsync(f => f.Name == fileName);
-            
-            _context.FileModels.Remove(fileModel);
-            await _context.SaveChangesAsync();
+                FileModel fileModel = await _context.FileModels.FirstOrDefaultAsync(f => f.Name == fileName);
+
+                _context.FileModels.Remove(fileModel);
+                await _context.SaveChangesAsync();
+            }
         }
 
         public async Task<IEnumerable<FileModel>> GetAllFiles()
