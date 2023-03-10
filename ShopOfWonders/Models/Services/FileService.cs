@@ -1,6 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.EntityFrameworkCore;
 using SOW.DataModels;
 using SOW.ShopOfWonders.Models.Interfaces;
+using System.IO;
 
 namespace SOW.ShopOfWonders.Models.Services
 {
@@ -66,6 +68,56 @@ namespace SOW.ShopOfWonders.Models.Services
                 Name = formFile.Name,
                 Description = formFile.ContentDisposition.ToString(),
                 Size = formFile.Length,
+                Author = user,
+                Path = path
+            };
+
+            await _context.FileModels.AddAsync(fileModel);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task UploadFile(IBrowserFile formFile, User user)
+        {
+            /// выаолнить проверку антивируса
+#if DEBUG
+            if (user is null)
+            {
+                user = await _context.Users.FirstOrDefaultAsync();
+            }
+#endif
+            string path = _webHostEnvironment.WebRootPath + @"\Files\" + formFile.Name;
+
+            //using (FileStream fs = new(path, FileMode.Create))
+            //{
+            //    await formFile.OpenReadStream().CopyToAsync(fs);
+            //}
+
+            FileStream fs = null;
+            try
+            {
+                fs = new(path, FileMode.Create);
+                await formFile.OpenReadStream().CopyToAsync(fs);
+            }
+            catch
+            {
+                throw new Exception("Ошибка созранения файла!");
+            }
+            finally
+            {
+                fs.Dispose();
+            }
+
+            if (await _antyVirusService.IsVirus(path, new CancellationToken()))
+            {
+                throw new Exception("Файл помечен как вирус!"); // нужно сделать своии исключения
+            }
+
+
+            FileModel fileModel = new()
+            {
+                Name = formFile.Name,
+                Description = formFile.ContentType,
+                Size = formFile.Size,
                 Author = user,
                 Path = path
             };

@@ -1,4 +1,5 @@
-﻿using SOW.DataModels;
+﻿using Microsoft.AspNetCore.Components.Forms;
+using SOW.DataModels;
 
 namespace SOW.ShopOfWonders.Models.Interfaces
 {
@@ -10,6 +11,8 @@ namespace SOW.ShopOfWonders.Models.Interfaces
         public Task<IQueryable<FileModel>> GetAllFilesWithFilter();
 
         public Task UploadFile(IFormFile formFile, User user);
+
+        public Task UploadFile(IBrowserFile formFile, User user);
 
         public Task DeleteFile(string fileName);
 

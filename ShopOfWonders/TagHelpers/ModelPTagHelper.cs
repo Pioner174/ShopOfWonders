@@ -11,7 +11,7 @@ namespace SOW.ShopOfWonders.TagHelpers
         [HtmlAttributeName("asp-for")]
         public ModelExpression Model { get; set; }
 
-        public override async void Process(TagHelperContext context, TagHelperOutput output)
+        public override void Process(TagHelperContext context, TagHelperOutput output)
         {
             output.TagName = "p";
             var content = Model.Model == null ? string.Empty : Model.Model.ToString();

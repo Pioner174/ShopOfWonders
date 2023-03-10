@@ -1,0 +1,52 @@
+﻿@page "/files"
+
+<h3>FilesHeandler</h3>
+
+<table class="table table-striped">
+   <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Path</th>
+    </tr>
+  </thead>
+    <tbody>
+        @foreach(FileModel f in FileModels)
+        {
+        <tr>
+            <td>@f.Id</td>
+            <td>@f.Name</td>
+            <td>@f.Path</td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+<div class="mb-3">
+  <label for="formFile" class="form-label">Default file input example</label>
+  <InputFile class="form-control" OnChange="@LoadFile" multiple type="file" id="formFile"/>
+</div>
+
+
+@code {
+    [Inject]
+    private IFileService _fileService { get; set; }
+
+    public IEnumerable<FileModel> FileModels { get; set; } = Enumerable.Empty<FileModel>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        FileModels = await _fileService.GetAllFiles();
+    }
+
+    private async Task LoadFile(InputFileChangeEventArgs e)
+    {
+        if(e.File != null && e.File.Size > 0)
+        {
+            User u = null;
+            await _fileService.UploadFile(e.File, u);
+        }
+
+        await InvokeAsync(StateHasChanged);
+    }
+}
