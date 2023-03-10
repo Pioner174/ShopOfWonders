@@ -363,3 +363,4 @@ MigrationBackup/
 FodyWeavers.xsd
 /ShopOfWonders/Migrations
 /ShopOfWonders/appsettings.json
+/ShopOfWonders/wwwroot/files
