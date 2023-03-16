@@ -1,6 +1,6 @@
 ﻿using SOW.ShopOfWonders.Models.ViewModels;
 
-namespace SOW.ShopOfWonders.Models.Interfaces
+namespace SOW.ShopOfWonders.ExternalServices.Interfaces
 {
     public interface IUserConnector
     {

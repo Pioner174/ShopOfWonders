@@ -1,8 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SOW.DataModels;
-using SOW.ShopOfWonders.Models.Interfaces;
+using SOW.ShopOfWonders.ExternalServices.Interfaces;
+using SOW.ShopOfWonders.Models;
 
-namespace SOW.ShopOfWonders.Models.Services
+namespace SOW.ShopOfWonders.ExternalServices.Services
 {
     public class EFTagService : ITagService
     {
@@ -25,14 +26,14 @@ namespace SOW.ShopOfWonders.Models.Services
 
         public async Task<Tag> CreateTagAsync(Tag tag)
         {
-            if(await IsTagAvailable(tag))
+            if (await IsTagAvailable(tag))
             {
                 _context.Tags.Add(tag);
 
                 await _context.SaveChangesAsync();
             }
 
-            return await _context.Tags.FirstOrDefaultAsync(t=> t.Name == tag.Name);
+            return await _context.Tags.FirstOrDefaultAsync(t => t.Name == tag.Name);
         }
 
         public async Task UpdateTagAsync(Tag tag)
@@ -52,7 +53,7 @@ namespace SOW.ShopOfWonders.Models.Services
 
         public async Task<bool> IsTagAvailable(Tag tag)
         {
-            if(await _context.Tags.FirstOrDefaultAsync(t=>t.Name== tag.Name) == null)
+            if (await _context.Tags.FirstOrDefaultAsync(t => t.Name == tag.Name) == null)
             {
                 return true;
             }

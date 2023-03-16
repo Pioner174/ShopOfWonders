@@ -2,8 +2,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SOW.DataModels;
+using SOW.ShopOfWonders.ExternalServices.Interfaces;
 using SOW.ShopOfWonders.Models;
-using SOW.ShopOfWonders.Models.Interfaces;
 using SOW.ShopOfWonders.Models.ViewModels;
 
 namespace SOW.ShopOfWonders.Controllers.MVC

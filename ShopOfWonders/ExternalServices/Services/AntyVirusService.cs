@@ -1,8 +1,8 @@
-﻿using SOW.ShopOfWonders.Models.Interfaces;
+﻿using SOW.ShopOfWonders.ExternalServices.Interfaces;
 using System.Diagnostics;
 using System.IO;
 
-namespace SOW.ShopOfWonders.Models.Services
+namespace SOW.ShopOfWonders.ExternalServices.Services
 {
     public class AntyVirusService : IAntyVirusService
     {
@@ -63,7 +63,7 @@ namespace SOW.ShopOfWonders.Models.Services
         public async Task<bool> IsVirus(IFormFile file, CancellationToken cancellationToken)
         {
             if (_isDefenderAvailable)
-                throw new InvalidOperationException("Ошибка в запуске MpCmdRun.exe"); 
+                throw new InvalidOperationException("Ошибка в запуске MpCmdRun.exe");
 
             string path = Path.GetTempPath();
 

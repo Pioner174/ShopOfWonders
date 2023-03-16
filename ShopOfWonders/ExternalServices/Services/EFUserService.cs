@@ -1,9 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SOW.DataModels;
-using SOW.ShopOfWonders.Models.Interfaces;
+using SOW.ShopOfWonders.ExternalServices.Interfaces;
+using SOW.ShopOfWonders.Models;
 using SOW.ShopOfWonders.Models.ViewModels;
 
-namespace SOW.ShopOfWonders.Models.Services
+namespace SOW.ShopOfWonders.ExternalServices.Services
 {
 
     public class EFUserService : IUserConnector
@@ -54,7 +55,7 @@ namespace SOW.ShopOfWonders.Models.Services
             }).ToList();
         }
 
-  
+
         public async Task<bool> SaveUserVMInBDAsync(UserViewModel userVM)
         {
             try
@@ -77,14 +78,14 @@ namespace SOW.ShopOfWonders.Models.Services
             {
                 return false;
             }
-            
+
         }
 
         public async Task<bool> UpdateUserForUserVMAsync(UserViewModel userVM)
         {
             var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == userVM.Id && x.IsDeleted == false);
-            if(user == null)
-    {
+            if (user == null)
+            {
                 return false;
             }
 

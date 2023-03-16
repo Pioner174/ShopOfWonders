@@ -3,10 +3,10 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using SOW.DataModels;
+using SOW.ShopOfWonders.ExternalServices.Interfaces;
 using SOW.ShopOfWonders.ExternalServices.RabbitMq;
+using SOW.ShopOfWonders.ExternalServices.Services;
 using SOW.ShopOfWonders.Models;
-using SOW.ShopOfWonders.Models.Interfaces;
-using SOW.ShopOfWonders.Models.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 

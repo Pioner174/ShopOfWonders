@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components.Forms;
 using SOW.DataModels;
 
-namespace SOW.ShopOfWonders.Models.Interfaces
+namespace SOW.ShopOfWonders.ExternalServices.Interfaces
 {
     public interface IFileService
     {

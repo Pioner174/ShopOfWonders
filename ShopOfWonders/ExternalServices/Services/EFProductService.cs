@@ -1,8 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SOW.DataModels;
-using SOW.ShopOfWonders.Models.Interfaces;
+using SOW.ShopOfWonders.ExternalServices.Interfaces;
+using SOW.ShopOfWonders.Models;
 
-namespace SOW.ShopOfWonders.Models.Services
+namespace SOW.ShopOfWonders.ExternalServices.Services
 {
     public class EFProductService : IProductService
     {

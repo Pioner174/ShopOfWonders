@@ -1,10 +1,11 @@
 ﻿using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.EntityFrameworkCore;
 using SOW.DataModels;
-using SOW.ShopOfWonders.Models.Interfaces;
+using SOW.ShopOfWonders.ExternalServices.Interfaces;
+using SOW.ShopOfWonders.Models;
 using System.IO;
 
-namespace SOW.ShopOfWonders.Models.Services
+namespace SOW.ShopOfWonders.ExternalServices.Services
 {
     public class FileService : IFileService
     {
@@ -14,7 +15,7 @@ namespace SOW.ShopOfWonders.Models.Services
 
         private IWebHostEnvironment _webHostEnvironment;
 
-        public FileService(IdentityContext context , IAntyVirusService antyVirusService, IWebHostEnvironment webHostEnvironment)
+        public FileService(IdentityContext context, IAntyVirusService antyVirusService, IWebHostEnvironment webHostEnvironment)
         {
             _context = context;
             _antyVirusService = antyVirusService;
@@ -23,7 +24,7 @@ namespace SOW.ShopOfWonders.Models.Services
 
         public async Task DeleteFile(string fileName)
         {
-            if(File.Exists("/Files/" + fileName))
+            if (File.Exists("/Files/" + fileName))
             {
                 File.Delete("/Files/" + fileName);
 
@@ -96,7 +97,7 @@ namespace SOW.ShopOfWonders.Models.Services
             try
             {
                 fs = new(path, FileMode.Create);
-                await formFile.OpenReadStream().CopyToAsync(fs);
+                await formFile.OpenReadStream(33554432).CopyToAsync(fs); //огранициние по размеру файла
             }
             catch
             {
